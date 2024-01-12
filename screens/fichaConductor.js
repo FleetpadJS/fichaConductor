@@ -28,9 +28,9 @@ function formatTable(tableData) {
 CargaDatos()
 
 function CargaDatos(driverData) {
-    // const driver = JSON.parse(driverData)
+    const driver = JSON.parse(driverData)
 
-    const pepe = {
+    const testData = {
         "IBAN":
             {
                 "etiqueta": "Transferencia",
@@ -10433,7 +10433,7 @@ function CargaDatos(driverData) {
                 "valorCampo": "Mañana"
             }
     };
-    console.log('##ABEL## >> CargaDatos >>  CargaDatos', pepe);
-    fillCommonData(pepe)
-    createTable(pepe.nominas)
+    console.log('##ABEL## >> CargaDatos >>  CargaDatos', testData);
+    fillCommonData(driverData)
+    createTable(driverData.nominas)
 }
