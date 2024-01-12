@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha de Coche</title>
+    <link rel="stylesheet" href="../styles/generic/tailwind.css">
+    <link rel="stylesheet" href="../node_modules/tabulator-tables/dist/css/tabulator.min.css">
+    <script src="../node_modules/tabulator-tables/dist/js/tabulator.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .car-card {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .conductor-property {
+            margin-bottom: 15px;
+        }
+
+        .car-property label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .car-property span {
+            display: inline-block;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+<div class="car-card" id="conductorDetails">
+
+    <div id="fichaDatos" class="ficha">
+
+        <div class="grid grid-cols-2 gap-4">
+            <c-input label="Nombre" data-fill="nombre"></c-input>
+            <c-input label="Apellidos" data-fill="apellidos"></c-input>
+        </div>
+
+        <div class="grid grid-cols-3 gap-4">
+            <c-input label="D.N.I." data-fill="dni"></c-input>
+            <c-input label="Código" data-fill="codigoComunidadAutonoma"></c-input>
+            <c-input label="Tipo de contrato" data-fill="tipoJornada"></c-input>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+            <c-input label="Vehículo actual"></c-input>
+            <c-input label="Empresa actual" data-fill="empresaNombre"></c-input>
+        </div>
+
+        <div class="grid grid-cols-3 gap-4">
+            <c-input label="Fecha inicio carnet conducir"></c-input>
+            <c-input label="Fecha cita"></c-input>
+            <c-input label="¿Está trabajando?" data-fill="isActivo"></c-input>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+            <c-input label="Fecha vencimiento carnet conducir"></c-input>
+            <c-input label="Estado conductor" data-fill="isAsignable"></c-input>
+        </div>
+
+        <div class="grid grid-cols-4 gap-4">
+            <c-input label="Puntos carnet"></c-input>
+            <c-input label="Golpes"></c-input>
+            <c-input label="Fecha incorporación" data-fill="fechaAntiguedad"></c-input>
+            <c-input label="Id tarjeta solred" data-fill="tarjetaSolred"></c-input>
+        </div>
+
+        <div class="grid grid-cols-1 gap-4">
+            <c-input label="Vehiculo matricula ik"></c-input>
+        </div>
+
+
+        <div class="my-5">
+            <c-tab selected-index="0">
+                <h2 slot="tab">Nominas</h2>
+                <div slot="content">
+                    <div id="table-salary"></div>
+
+                </div>
+                <h2 slot="tab">Datos personales</h2>
+                <div slot="content">
+
+                    Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion
+                    daikon
+                    amaranth tatsoi tomatillo melon
+                    azuki bean garlic.
+
+                    Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi pea sprouts
+                    fava
+                    bean
+                    collard greens
+                    dandelion okra wakame tomato. Dandelion cucumber earthnut pea peanut soko zucchini.
+
+                    Turnip greens yarrow ricebean rutabaga endive cauliflower sea lettuce kohlrabi amaranth water
+                    spinach
+                    avocado daikon
+                    napa cabbage asparagus winter purslane kale. Celery potato scallion desert raisin horseradish
+                    spinach
+                    carrot soko. Lotus
+                    root water spinach fennel kombu maize bamboo shoot green bean swiss chard seakale pumpkin onion
+                    chickpea
+                    gram corn pea.
+                    Brussels sprout coriander water chestnut gourd swiss chard wakame kohlrabi beetroot carrot
+                    watercress.
+                    Corn amaranth
+                    salsify bunya nuts nori azuki bean chickweed potato bell pepper artichoke.
+                </div>
+                <h2 slot="tab">Localización</h2>
+                <div slot="content">
+                    <div class="grid grid-cols-2 gap-4">
+                        <c-input label="Teléfono personal 1"></c-input>
+                        <c-input label="Teléfono de empresa incorporación"></c-input>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <c-input label="Teléfono personal 2"></c-input>
+                        <c-input label="Email propio"></c-input>
+                    </div>
+                    <h2 slot="tab">Laboral</h2>
+                    <div slot="content">Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion
+                        daikon
+                        amaranth tatsoi tomatillo melon
+                        azuki bean garlic.
+
+                        Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi pea sprouts
+                        fava
+                        bean
+                        collard greens
+                        dandelion okra wakame tomato. Dandelion cucumber earthnut pea peanut soko zucchini.
+
+                        Turnip greens yarrow ricebean rutabaga endive cauliflower sea lettuce kohlrabi amaranth water
+                        spinach
+                        avocado daikon
+                        napa cabbage asparagus winter purslane kale. Celery potato scallion desert raisin horseradish
+                        spinach
+                        carrot soko. Lotus
+                        root water spinach fennel kombu maize bamboo shoot green bean swiss chard seakale pumpkin onion
+                        chickpea
+                        gram corn pea.
+                        Brussels sprout coriander water chestnut gourd swiss chard wakame kohlrabi beetroot carrot
+                        watercress.
+                        Corn amaranth
+                        salsify bunya nuts nori azuki bean chickweed potato bell pepper artichoke.
+                    </div>
+                    <h2 slot="tab">Equivalencias</h2>
+                    <div slot="content">Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion
+                        daikon
+                        amaranth tatsoi tomatillo melon
+                        azuki bean garlic.
+
+                        Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi pea sprouts
+                        fava
+                        bean
+                        collard greens
+                        dandelion okra wakame tomato. Dandelion cucumber earthnut pea peanut soko zucchini.
+
+                        Turnip greens yarrow ricebean rutabaga endive cauliflower sea lettuce kohlrabi amaranth water
+                        spinach
+                        avocado daikon
+                        napa cabbage asparagus winter purslane kale. Celery potato scallion desert raisin horseradish
+                        spinach
+                        carrot soko. Lotus
+                        root water spinach fennel kombu maize bamboo shoot green bean swiss chard seakale pumpkin onion
+                        chickpea
+                        gram corn pea.
+                        Brussels sprout coriander water chestnut gourd swiss chard wakame kohlrabi beetroot carrot
+                        watercress.
+                        Corn amaranth
+                        salsify bunya nuts nori azuki bean chickweed potato bell pepper artichoke.
+                    </div>
+            </c-tab>
+        </div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ultrices et velit
+            eu rutrum. Etiam bibendum ipsum
+            vitae vestibulum venenatis. Mauris volutpat libero quam. Vestibulum quis ipsum tempor, egestas libero
+            tristique,
+            malesuada nibh. Mauris vulputate sapien vitae nibh facilisis, ac pretium purus dictum. Mauris venenatis,
+            turpis ac
+            dictum sagittis, odio purus tincidunt elit, sit amet fermentum nibh lorem vel tortor. Mauris in libero
+            ac diam volutpat
+            tempor. In hendrerit sed sem sit amet pellentesque. Vestibulum ac massa vitae odio laoreet dictum at
+            rhoncus elit.
+
+            Integer ac est vel enim bibendum tempus. Aenean dignissim a augue laoreet elementum. Vivamus sit amet
+            facilisis ipsum,
+            id fringilla tortor. Integer vitae est ultricies, tincidunt purus id, eleifend enim. Integer egestas,
+            augue vel
+            malesuada aliquet, elit turpis condimentum odio, a tristique ipsum nisi scelerisque erat. Vivamus tortor
+            lacus,
+            tristique ut enim nec, consequat porttitor odio. Phasellus facilisis enim ut nisl molestie, sed
+            convallis ipsum
+            vulputate. Donec mollis vitae nibh vitae tincidunt. Vestibulum lobortis eu eros vitae luctus. Vestibulum
+            a augue non
+            lacus dignissim dignissim. Sed eget ipsum lacus. Donec a augue faucibus, vulputate nibh eu, posuere
+            arcu. Curabitur
+            risus nunc, hendrerit vel mi nec, vehicula gravida nisi. Nam a dolor eu velit dignissim facilisis. Morbi
+            tincidunt
+            ligula in nibh dignissim, sed ornare diam iaculis.</p>
+    </div>
+
+
+</div>
+<script src="../components/input.js"></script>
+<script src="../components/tab.js"></script>
+<script src="fichaConductor.js"></script>
+
+</body>
+
+</html>
