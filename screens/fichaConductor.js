@@ -1,34 +1,54 @@
-function fillCommonData(data) {
+function fillCommonData(allData) {
     const nodesToFill$$ = document.querySelectorAll("[data-fill]")
     console.log('##ABEL## >> nodesToFill$$ >>  fillCommonData', nodesToFill$$);
     for (const node$$ of nodesToFill$$) {
-        node$$.shadowRoot.querySelector("[data-fill]").value = data[node$$.getAttribute("data-fill")].valorCampo;
+        const queriedNode$$ = node$$.shadowRoot.querySelector("[data-fill]");
+        const labelNode$$ = node$$.shadowRoot.querySelector("label");
+        const field =  allData[node$$.getAttribute("data-fill")]
+        queriedNode$$.value = field.valorCampo;
+        if(field.funcionFM.length > 0){
+            labelNode$$.setAttribute("data-funcion-fm", field.funcionFM)
+            labelNode$$.setAttribute("data-parametros-funcion", field.parametrosFuncion)
+        }
+
     }
 }
 
-function createTable(tableData) {
 
+function createTable(tableData) {
 //define table
     const table = new window.Tabulator("#table-salary", {
-        data: formatTable(tableData),
-        autoColumns: true,
+        data: tableData,
+        height: "400",
+        // layout: "fitColumns",
+        // autoColumns:true,
+        columns: formatColumns(tableData[0]),
     });
 }
 
-function formatTable(tableData) {
-    return tableData.map((tableRow) => {
-        const formattedTableRow = {}
-        for (const key in tableRow) {
-            formattedTableRow[tableRow[key].etiqueta] = tableRow[key].valorCampo
-        }
-        return formattedTableRow
-    })
+function formatColumns(tableRow) {
+    const formattedColumns = []
+    for (const key in tableRow) {
+        formattedColumns.push(
+            {
+                title: tableRow[key].etiqueta,
+                field: key + ".valorCampo",
+                headerFilter: "list",
+                headerFilterParams: {valuesLookup: "active", multiselect: true},
+                headerFilterFunc: "in"
+            }
+        )
+
+    }
+
+
+    return formattedColumns
 }
 
 CargaDatos()
 
 function CargaDatos(driverData) {
-    const driver = JSON.parse(driverData)
+    // const driver = JSON.parse(driverData)
 
     const testData = {
         "IBAN":
@@ -36,7 +56,7 @@ function CargaDatos(driverData) {
                 "etiqueta": "Transferencia",
                 "funcionFM": "",
                 "parametrosFuncion": "",
-                "valorCampo": ""
+                "valorCampo": "ES3700817781667672892779\r"
             },
         "apellidos":
             {
@@ -84,7 +104,7 @@ function CargaDatos(driverData) {
             {
                 "bloque":
                     {
-                        "etiqueta": "Id Conductor",
+                        "etiqueta": "Bloque",
                         "funcionFM": "",
                         "parametrosFuncion": "",
                         "valorCampo": "1"
@@ -119,70 +139,70 @@ function CargaDatos(driverData) {
                     },
                 "comunidadAutonoma":
                     {
-                        "etiqueta": "Id Conductor",
+                        "etiqueta": "Comunidad autónoma",
                         "funcionFM": "",
                         "parametrosFuncion": "",
                         "valorCampo": "Madrid"
                     },
                 "escalera":
                     {
-                        "etiqueta": "Id Conductor",
+                        "etiqueta": "Escalera",
                         "funcionFM": "",
                         "parametrosFuncion": "",
                         "valorCampo": "A"
                     },
                 "municipio":
                     {
-                        "etiqueta": "Id Conductor",
+                        "etiqueta": "Municipio",
                         "funcionFM": "",
                         "parametrosFuncion": "",
                         "valorCampo": "Alcorcón"
                     },
                 "nombreVia":
                     {
-                        "etiqueta": "Id Conductor",
+                        "etiqueta": "Nombre vía",
                         "funcionFM": "",
                         "parametrosFuncion": "",
                         "valorCampo": "Princesa"
                     },
                 "numeroVia":
                     {
-                        "etiqueta": "Id Conductor",
+                        "etiqueta": "Número vía",
                         "funcionFM": "",
                         "parametrosFuncion": "",
                         "valorCampo": "12"
                     },
                 "pais":
                     {
-                        "etiqueta": "Id Conductor",
+                        "etiqueta": "País",
                         "funcionFM": "",
                         "parametrosFuncion": "",
                         "valorCampo": "España"
                     },
                 "piso":
                     {
-                        "etiqueta": "Id Conductor",
+                        "etiqueta": "Piso",
                         "funcionFM": "",
                         "parametrosFuncion": "",
                         "valorCampo": "3"
                     },
                 "provincia":
                     {
-                        "etiqueta": "Id Conductor",
+                        "etiqueta": "Provincia",
                         "funcionFM": "",
                         "parametrosFuncion": "",
                         "valorCampo": "Madrid"
                     },
                 "puerta":
                     {
-                        "etiqueta": "Id Conductor",
+                        "etiqueta": "Puerta",
                         "funcionFM": "",
                         "parametrosFuncion": "",
                         "valorCampo": "C"
                     },
                 "tipoVia":
                     {
-                        "etiqueta": "Id Conductor",
+                        "etiqueta": "Tipo de vía",
                         "funcionFM": "",
                         "parametrosFuncion": "",
                         "valorCampo": "CL"
@@ -193,13 +213,13 @@ function CargaDatos(driverData) {
                 "etiqueta": "Descripción",
                 "funcionFM": "",
                 "parametrosFuncion": "",
-                "valorCampo": ""
+                "valorCampo": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ultrices et velit eu rutrum. Etiam bibendum ipsum vitae vestibulum venenatis. Mauris volutpat libero quam. Vestibulum quis ipsum tempor, egestas libero tristique, malesuada nibh. Mauris vulputate sapien vitae nibh facilisis, ac pretium purus dictum. Mauris venenatis, turpis ac dictum sagittis, odio purus tincidunt elit, sit amet fermentum nibh lorem vel tortor. Mauris in libero ac diam volutpat tempor. In hendrerit sed sem sit amet pellentesque. Vestibulum ac massa vitae odio laoreet dictum at rhoncus elit. Integer ac est vel enim bibendum tempus. Aenean dignissim a augue laoreet elementum. Vivamus sit amet facilisis ipsum, id fringilla tortor. Integer vitae est ultricies, tincidunt purus id, eleifend enim. Integer egestas, augue vel malesuada aliquet, elit turpis condimentum odio, a tristique ipsum nisi scelerisque erat. Vivamus tortor lacus, tristique ut enim nec, consequat porttitor odio. Phasellus facilisis enim ut nisl molestie, sed convallis ipsum vulputate. Donec mollis vitae nibh vitae tincidunt. Vestibulum lobortis eu eros vitae luctus. Vestibulum a augue non lacus dignissim dignissim. Sed eget ipsum lacus. Donec a augue faucibus, vulputate nibh eu, posuere arcu. Curabitur risus nunc, hendrerit vel mi nec, vehicula gravida nisi. Nam a dolor eu velit dignissim facilisis. Morbi tincidunt ligula in nibh dignissim, sed ornare diam iaculis."
             },
         "dni":
             {
                 "etiqueta": "Nombre Completo",
-                "funcionFM": "",
-                "parametrosFuncion": "",
+                "funcionFM": "activarProcesoConductor",
+                "parametrosFuncion": "{\"dni\":\"50557804D\",\"id_Conductor\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\",\"tipoProceso\":\"dni\"}",
                 "valorCampo": "50557804D"
             },
         "empresaNombre":
@@ -228,7 +248,7 @@ function CargaDatos(driverData) {
                 "etiqueta": "Fecha de Antiguedad",
                 "funcionFM": "",
                 "parametrosFuncion": "",
-                "valorCampo": ""
+                "valorCampo": "01/02/2015"
             },
         "fechaBajaSegSocial":
             {
@@ -246,7 +266,7 @@ function CargaDatos(driverData) {
             },
         "fechaVencimientoNIE":
             {
-                "etiqueta": "Fecha vencimiento INE",
+                "etiqueta": "Fecha vencimiento NIE",
                 "funcionFM": "",
                 "parametrosFuncion": "",
                 "valorCampo": ""
@@ -319,7 +339,7 @@ function CargaDatos(driverData) {
                 "etiqueta": "Segunda nacionalidad",
                 "funcionFM": "",
                 "parametrosFuncion": "",
-                "valorCampo": ""
+                "valorCampo": "ITALIA"
             },
         "nieOdni":
             {
@@ -10432,9 +10452,9 @@ function CargaDatos(driverData) {
                 "parametrosFuncion": "",
                 "valorCampo": "Mañana"
             }
-    };
+    }
     console.log('##ABEL## >> CargaDatos >>  CargaDatos', testData);
-    fillCommonData(driver)
-    createTable(driver.nominas)
+    fillCommonData(testData)
+    createTable(testData.nominas)
 }
 

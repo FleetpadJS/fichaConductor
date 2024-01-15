@@ -3,8 +3,16 @@ class Input extends HTMLElement {
         super();
     }
 
+
+    handleEvent(event) {
+        if (event.type === "click") {
+            FileMaker.PerformScript(event.target.getAttribute("data-funcion-fm"), event.target.getAttribute("data-parametros-funcion"));
+
+        }
+    }
+
     connectedCallback() {
-        let shadowRoot = this.attachShadow({ mode: "open" });
+        let shadowRoot = this.attachShadow({mode: "open"});
         shadowRoot.innerHTML = `
       <style>
         :host {
@@ -38,6 +46,9 @@ class Input extends HTMLElement {
         <input class="c-input__box" type="text" data-fill="${this.getAttribute('data-fill')}">
       </div>
     `;
+        this.label = this.shadowRoot.querySelector("label");
+        // if (this.label.getAttribute("data-funcion-fm"))
+            this.label.addEventListener("click", this)
     }
 }
 
