@@ -45,10 +45,12 @@ function formatColumns(tableRow) {
     return formattedColumns
 }
 
-CargaDatos()
 
 function CargaDatos(driverData) {
-    // const driver = JSON.parse(driverData)
+    
+    const driver = JSON.parse(driverData)
+    //Imprimir driver
+    //console.log(JSON.stringify(driver))
 
     const testData = {
         "IBAN":
@@ -56,7 +58,7 @@ function CargaDatos(driverData) {
                 "etiqueta": "Transferencia",
                 "funcionFM": "",
                 "parametrosFuncion": "",
-                "valorCampo": "ES3700817781667672892779\r"
+                "valorCampo": "ES3700817781667672892779"
             },
         "apellidos":
             {
@@ -10453,8 +10455,8 @@ function CargaDatos(driverData) {
                 "valorCampo": "Mañana"
             }
     }
-    console.log('##ABEL## >> CargaDatos >>  CargaDatos', testData);
-    fillCommonData(testData)
-    createTable(testData.nominas)
+    console.log('##ABEL## >> CargaDatos >>  CargaDatos', driver);
+    fillCommonData(driver)
+    createTable(driver.nominas)
 }
 
