@@ -1,22 +1,36 @@
 function fillCommonData(allData) {
-    const nodesToFill$$ = document.querySelectorAll("[data-fill]")
+    // Selecciona todos los elementos con el atributo "data-fill"
+    const nodesToFill$$ = document.querySelectorAll("[data-fill]");
     console.log('##ABEL## >> nodesToFill$$ >>  fillCommonData', nodesToFill$$);
-    for (const node$$ of nodesToFill$$) {
-        const queriedNode$$ = node$$.shadowRoot.querySelector("[data-fill]");
-        const labelNode$$ = node$$.shadowRoot.querySelector("label");
-        const field =  allData[node$$.getAttribute("data-fill")]
-        queriedNode$$.value = field.valorCampo;
-        if(field.funcionFM.length > 0){
-            labelNode$$.setAttribute("data-funcion-fm", field.funcionFM)
-            labelNode$$.setAttribute("data-parametros-funcion", field.parametrosFuncion)
-        }
 
+    // Itera sobre cada elemento seleccionado
+    for (const node$$ of nodesToFill$$) {
+        // Busca el elemento con el atributo "data-fill" en la sombra del elemento actual
+        const queriedNode$$ = node$$.shadowRoot.querySelector("[data-fill]");
+        // Busca el elemento <label> en la sombra del elemento actual
+        const labelNode$$ = node$$.shadowRoot.querySelector("label");
+
+        // Obtiene los datos correspondientes al elemento actual
+        const field = allData[node$$.getAttribute("data-fill")];
+
+        // Verifica si field y field.valorCampo no son "falsy"
+        if (field && field.valorCampo) {
+            // Asigna el valor de field.valorCampo al elemento con "data-fill"
+            queriedNode$$.value = field.valorCampo;
+
+            // Si field.funcionFM tiene longitud mayor a 0, establece atributos en el elemento <label>
+            if (field.funcionFM.length > 0) {
+                labelNode$$.setAttribute("data-funcion-fm", field.funcionFM);
+                labelNode$$.setAttribute("data-parametros-funcion", field.parametrosFuncion);
+            }
+        }
     }
 }
 
 
+
 function createTable(tableData) {
-//define table
+    //define table
     const table = new window.Tabulator("#table-salary", {
         data: tableData,
         height: "400",
@@ -34,7 +48,7 @@ function formatColumns(tableRow) {
                 title: tableRow[key].etiqueta,
                 field: key + ".valorCampo",
                 headerFilter: "list",
-                headerFilterParams: {valuesLookup: "active", multiselect: true},
+                headerFilterParams: { valuesLookup: "active", multiselect: true },
                 headerFilterFunc: "in"
             }
         )
@@ -45,10416 +59,10418 @@ function formatColumns(tableRow) {
     return formattedColumns
 }
 
-CargaDatos()
 
 function CargaDatos(driverData) {
-    // const driver = JSON.parse(driverData)
+
+    const driver = JSON.parse(driverData)
+    //Imprimir driver
+    //console.log(JSON.stringify(driver))
 
     const testData = {
         "IBAN":
-            {
-                "etiqueta": "Transferencia",
-                "funcionFM": "",
-                "parametrosFuncion": "",
-                "valorCampo": "ES3700817781667672892779\r"
-            },
+        {
+            "etiqueta": "Transferencia",
+            "funcionFM": "",
+            "parametrosFuncion": "",
+            "valorCampo": "ES3700817781667672892779"
+        },
         "apellidos":
+        {
+            "etiqueta": "Apellidos",
+            "funcionFM": "",
+            "parametrosFuncion": "",
+            "valorCampo": "Ropero Fernandez"
+        },
+        "codigoComunidadAutonoma":
+        {
+            "etiqueta": "Código de comunidad autónoma",
+            "funcionFM": "",
+            "parametrosFuncion": "",
+            "valorCampo": "12"
+        },
+        "codigoMunicipio":
+        {
+            "etiqueta": "Código de municipio",
+            "funcionFM": "",
+            "parametrosFuncion": "",
+            "valorCampo": "28007"
+        },
+        "codigoNominasol":
+        {
+            "etiqueta": "Código nominasol",
+            "funcionFM": "",
+            "parametrosFuncion": "",
+            "valorCampo": "942"
+        },
+        "codigoProvincia":
+        {
+            "etiqueta": "Código de provincia",
+            "funcionFM": "",
+            "parametrosFuncion": "",
+            "valorCampo": "28"
+        },
+        "correoElectronico":
+        {
+            "etiqueta": "Correo electrónico",
+            "funcionFM": "",
+            "parametrosFuncion": "",
+            "valorCampo": "victor.ropero.fdez@gmail.com"
+        },
+        "datos_domicilio":
+        {
+            "bloque":
             {
-                "etiqueta": "Apellidos",
+                "etiqueta": "Bloque",
                 "funcionFM": "",
                 "parametrosFuncion": "",
-                "valorCampo": "Ropero Fernandez"
+                "valorCampo": "1"
             },
-        "codigoComunidadAutonoma":
+            "codigoComunidadAutonoma":
             {
                 "etiqueta": "Código de comunidad autónoma",
                 "funcionFM": "",
                 "parametrosFuncion": "",
                 "valorCampo": "12"
             },
-        "codigoMunicipio":
+            "codigoMunicipio":
             {
                 "etiqueta": "Código de municipio",
                 "funcionFM": "",
                 "parametrosFuncion": "",
                 "valorCampo": "28007"
             },
-        "codigoNominasol":
+            "codigoPostal":
             {
-                "etiqueta": "Código nominasol",
+                "etiqueta": "Código postal",
                 "funcionFM": "",
                 "parametrosFuncion": "",
-                "valorCampo": "942"
+                "valorCampo": "28050"
             },
-        "codigoProvincia":
+            "codigoProvincia":
             {
                 "etiqueta": "Código de provincia",
                 "funcionFM": "",
                 "parametrosFuncion": "",
                 "valorCampo": "28"
             },
-        "correoElectronico":
+            "comunidadAutonoma":
             {
-                "etiqueta": "Correo electrónico",
+                "etiqueta": "Comunidad autónoma",
                 "funcionFM": "",
                 "parametrosFuncion": "",
-                "valorCampo": "victor.ropero.fdez@gmail.com"
+                "valorCampo": "Madrid"
             },
-        "datos_domicilio":
+            "escalera":
             {
-                "bloque":
-                    {
-                        "etiqueta": "Bloque",
-                        "funcionFM": "",
-                        "parametrosFuncion": "",
-                        "valorCampo": "1"
-                    },
-                "codigoComunidadAutonoma":
-                    {
-                        "etiqueta": "Código de comunidad autónoma",
-                        "funcionFM": "",
-                        "parametrosFuncion": "",
-                        "valorCampo": "12"
-                    },
-                "codigoMunicipio":
-                    {
-                        "etiqueta": "Código de municipio",
-                        "funcionFM": "",
-                        "parametrosFuncion": "",
-                        "valorCampo": "28007"
-                    },
-                "codigoPostal":
-                    {
-                        "etiqueta": "Código postal",
-                        "funcionFM": "",
-                        "parametrosFuncion": "",
-                        "valorCampo": "28050"
-                    },
-                "codigoProvincia":
-                    {
-                        "etiqueta": "Código de provincia",
-                        "funcionFM": "",
-                        "parametrosFuncion": "",
-                        "valorCampo": "28"
-                    },
-                "comunidadAutonoma":
-                    {
-                        "etiqueta": "Comunidad autónoma",
-                        "funcionFM": "",
-                        "parametrosFuncion": "",
-                        "valorCampo": "Madrid"
-                    },
-                "escalera":
-                    {
-                        "etiqueta": "Escalera",
-                        "funcionFM": "",
-                        "parametrosFuncion": "",
-                        "valorCampo": "A"
-                    },
-                "municipio":
-                    {
-                        "etiqueta": "Municipio",
-                        "funcionFM": "",
-                        "parametrosFuncion": "",
-                        "valorCampo": "Alcorcón"
-                    },
-                "nombreVia":
-                    {
-                        "etiqueta": "Nombre vía",
-                        "funcionFM": "",
-                        "parametrosFuncion": "",
-                        "valorCampo": "Princesa"
-                    },
-                "numeroVia":
-                    {
-                        "etiqueta": "Número vía",
-                        "funcionFM": "",
-                        "parametrosFuncion": "",
-                        "valorCampo": "12"
-                    },
-                "pais":
-                    {
-                        "etiqueta": "País",
-                        "funcionFM": "",
-                        "parametrosFuncion": "",
-                        "valorCampo": "España"
-                    },
-                "piso":
-                    {
-                        "etiqueta": "Piso",
-                        "funcionFM": "",
-                        "parametrosFuncion": "",
-                        "valorCampo": "3"
-                    },
-                "provincia":
-                    {
-                        "etiqueta": "Provincia",
-                        "funcionFM": "",
-                        "parametrosFuncion": "",
-                        "valorCampo": "Madrid"
-                    },
-                "puerta":
-                    {
-                        "etiqueta": "Puerta",
-                        "funcionFM": "",
-                        "parametrosFuncion": "",
-                        "valorCampo": "C"
-                    },
-                "tipoVia":
-                    {
-                        "etiqueta": "Tipo de vía",
-                        "funcionFM": "",
-                        "parametrosFuncion": "",
-                        "valorCampo": "CL"
-                    }
+                "etiqueta": "Escalera",
+                "funcionFM": "",
+                "parametrosFuncion": "",
+                "valorCampo": "A"
             },
+            "municipio":
+            {
+                "etiqueta": "Municipio",
+                "funcionFM": "",
+                "parametrosFuncion": "",
+                "valorCampo": "Alcorcón"
+            },
+            "nombreVia":
+            {
+                "etiqueta": "Nombre vía",
+                "funcionFM": "",
+                "parametrosFuncion": "",
+                "valorCampo": "Princesa"
+            },
+            "numeroVia":
+            {
+                "etiqueta": "Número vía",
+                "funcionFM": "",
+                "parametrosFuncion": "",
+                "valorCampo": "12"
+            },
+            "pais":
+            {
+                "etiqueta": "País",
+                "funcionFM": "",
+                "parametrosFuncion": "",
+                "valorCampo": "España"
+            },
+            "piso":
+            {
+                "etiqueta": "Piso",
+                "funcionFM": "",
+                "parametrosFuncion": "",
+                "valorCampo": "3"
+            },
+            "provincia":
+            {
+                "etiqueta": "Provincia",
+                "funcionFM": "",
+                "parametrosFuncion": "",
+                "valorCampo": "Madrid"
+            },
+            "puerta":
+            {
+                "etiqueta": "Puerta",
+                "funcionFM": "",
+                "parametrosFuncion": "",
+                "valorCampo": "C"
+            },
+            "tipoVia":
+            {
+                "etiqueta": "Tipo de vía",
+                "funcionFM": "",
+                "parametrosFuncion": "",
+                "valorCampo": "CL"
+            }
+        },
         "descripcion":
-            {
-                "etiqueta": "Descripción",
-                "funcionFM": "",
-                "parametrosFuncion": "",
-                "valorCampo": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ultrices et velit eu rutrum. Etiam bibendum ipsum vitae vestibulum venenatis. Mauris volutpat libero quam. Vestibulum quis ipsum tempor, egestas libero tristique, malesuada nibh. Mauris vulputate sapien vitae nibh facilisis, ac pretium purus dictum. Mauris venenatis, turpis ac dictum sagittis, odio purus tincidunt elit, sit amet fermentum nibh lorem vel tortor. Mauris in libero ac diam volutpat tempor. In hendrerit sed sem sit amet pellentesque. Vestibulum ac massa vitae odio laoreet dictum at rhoncus elit. Integer ac est vel enim bibendum tempus. Aenean dignissim a augue laoreet elementum. Vivamus sit amet facilisis ipsum, id fringilla tortor. Integer vitae est ultricies, tincidunt purus id, eleifend enim. Integer egestas, augue vel malesuada aliquet, elit turpis condimentum odio, a tristique ipsum nisi scelerisque erat. Vivamus tortor lacus, tristique ut enim nec, consequat porttitor odio. Phasellus facilisis enim ut nisl molestie, sed convallis ipsum vulputate. Donec mollis vitae nibh vitae tincidunt. Vestibulum lobortis eu eros vitae luctus. Vestibulum a augue non lacus dignissim dignissim. Sed eget ipsum lacus. Donec a augue faucibus, vulputate nibh eu, posuere arcu. Curabitur risus nunc, hendrerit vel mi nec, vehicula gravida nisi. Nam a dolor eu velit dignissim facilisis. Morbi tincidunt ligula in nibh dignissim, sed ornare diam iaculis."
-            },
+        {
+            "etiqueta": "Descripción",
+            "funcionFM": "",
+            "parametrosFuncion": "",
+            "valorCampo": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ultrices et velit eu rutrum. Etiam bibendum ipsum vitae vestibulum venenatis. Mauris volutpat libero quam. Vestibulum quis ipsum tempor, egestas libero tristique, malesuada nibh. Mauris vulputate sapien vitae nibh facilisis, ac pretium purus dictum. Mauris venenatis, turpis ac dictum sagittis, odio purus tincidunt elit, sit amet fermentum nibh lorem vel tortor. Mauris in libero ac diam volutpat tempor. In hendrerit sed sem sit amet pellentesque. Vestibulum ac massa vitae odio laoreet dictum at rhoncus elit. Integer ac est vel enim bibendum tempus. Aenean dignissim a augue laoreet elementum. Vivamus sit amet facilisis ipsum, id fringilla tortor. Integer vitae est ultricies, tincidunt purus id, eleifend enim. Integer egestas, augue vel malesuada aliquet, elit turpis condimentum odio, a tristique ipsum nisi scelerisque erat. Vivamus tortor lacus, tristique ut enim nec, consequat porttitor odio. Phasellus facilisis enim ut nisl molestie, sed convallis ipsum vulputate. Donec mollis vitae nibh vitae tincidunt. Vestibulum lobortis eu eros vitae luctus. Vestibulum a augue non lacus dignissim dignissim. Sed eget ipsum lacus. Donec a augue faucibus, vulputate nibh eu, posuere arcu. Curabitur risus nunc, hendrerit vel mi nec, vehicula gravida nisi. Nam a dolor eu velit dignissim facilisis. Morbi tincidunt ligula in nibh dignissim, sed ornare diam iaculis."
+        },
         "dni":
-            {
-                "etiqueta": "Nombre Completo",
-                "funcionFM": "activarProcesoConductor",
-                "parametrosFuncion": "{\"dni\":\"50557804D\",\"id_Conductor\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\",\"tipoProceso\":\"dni\"}",
-                "valorCampo": "50557804D"
-            },
+        {
+            "etiqueta": "Nombre Completo",
+            "funcionFM": "activarProcesoConductor",
+            "parametrosFuncion": "{\"dni\":\"50557804D\",\"id_Conductor\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\",\"tipoProceso\":\"dni\"}",
+            "valorCampo": "50557804D"
+        },
         "empresaNombre":
-            {
-                "etiqueta": "Empresa Actual",
-                "funcionFM": "mostrarID",
-                "parametrosFuncion": "{\"id_Registro\":\"DA7F20E9-4CFC-B84E-AA8B-BD827FE07ACF\"}",
-                "valorCampo": "GARRIDO MOBILITY MADRID, S.L."
-            },
+        {
+            "etiqueta": "Empresa Actual",
+            "funcionFM": "mostrarID",
+            "parametrosFuncion": "{\"id_Registro\":\"DA7F20E9-4CFC-B84E-AA8B-BD827FE07ACF\"}",
+            "valorCampo": "GARRIDO MOBILITY MADRID, S.L."
+        },
         "estadoNombre":
-            {
-                "etiqueta": "Estado",
-                "funcionFM": "",
-                "parametrosFuncion": "",
-                "valorCampo": "Baja Completa"
-            },
+        {
+            "etiqueta": "Estado",
+            "funcionFM": "",
+            "parametrosFuncion": "",
+            "valorCampo": "Baja Completa"
+        },
         "fechaAltaSegSocial":
-            {
-                "etiqueta": "Transferencia",
-                "funcionFM": "",
-                "parametrosFuncion": "",
-                "valorCampo": "31/10/2023"
-            },
+        {
+            "etiqueta": "Transferencia",
+            "funcionFM": "",
+            "parametrosFuncion": "",
+            "valorCampo": "31/10/2023"
+        },
         "fechaAntiguedad":
-            {
-                "etiqueta": "Fecha de Antiguedad",
-                "funcionFM": "",
-                "parametrosFuncion": "",
-                "valorCampo": "01/02/2015"
-            },
+        {
+            "etiqueta": "Fecha de Antiguedad",
+            "funcionFM": "",
+            "parametrosFuncion": "",
+            "valorCampo": "01/02/2015"
+        },
         "fechaBajaSegSocial":
-            {
-                "etiqueta": "Fecha baja seguridad social",
-                "funcionFM": "",
-                "parametrosFuncion": "",
-                "valorCampo": "15/11/2023"
-            },
+        {
+            "etiqueta": "Fecha baja seguridad social",
+            "funcionFM": "",
+            "parametrosFuncion": "",
+            "valorCampo": "15/11/2023"
+        },
         "fechaIncorporacion":
-            {
-                "etiqueta": "Fecha de incorporación",
-                "funcionFM": "",
-                "parametrosFuncion": "",
-                "valorCampo": "31/10/2023"
-            },
+        {
+            "etiqueta": "Fecha de incorporación",
+            "funcionFM": "",
+            "parametrosFuncion": "",
+            "valorCampo": "31/10/2023"
+        },
         "fechaVencimientoNIE":
-            {
-                "etiqueta": "Fecha vencimiento NIE",
-                "funcionFM": "",
-                "parametrosFuncion": "",
-                "valorCampo": ""
-            },
+        {
+            "etiqueta": "Fecha vencimiento NIE",
+            "funcionFM": "",
+            "parametrosFuncion": "",
+            "valorCampo": ""
+        },
         "fechaVencimientoPermisoTrabajo":
-            {
-                "etiqueta": "Fecha vencimiento permiso de trabajo",
-                "funcionFM": "",
-                "parametrosFuncion": "",
-                "valorCampo": ""
-            },
+        {
+            "etiqueta": "Fecha vencimiento permiso de trabajo",
+            "funcionFM": "",
+            "parametrosFuncion": "",
+            "valorCampo": ""
+        },
         "formaCobro":
-            {
-                "etiqueta": "Forma de cobro",
-                "funcionFM": "",
-                "parametrosFuncion": "",
-                "valorCampo": ""
-            },
+        {
+            "etiqueta": "Forma de cobro",
+            "funcionFM": "",
+            "parametrosFuncion": "",
+            "valorCampo": ""
+        },
         "id_Conductor":
-            {
-                "etiqueta": "Id Conductor",
-                "funcionFM": "",
-                "parametrosFuncion": "",
-                "valorCampo": "5E3B3669-01DD-4B9D-A711-DC6A8B8C8825"
-            },
+        {
+            "etiqueta": "Id Conductor",
+            "funcionFM": "",
+            "parametrosFuncion": "",
+            "valorCampo": "5E3B3669-01DD-4B9D-A711-DC6A8B8C8825"
+        },
         "id_ContratoActual":
-            {
-                "etiqueta": "Id contrato actual",
-                "funcionFM": "",
-                "parametrosFuncion": "",
-                "valorCampo": ""
-            },
+        {
+            "etiqueta": "Id contrato actual",
+            "funcionFM": "",
+            "parametrosFuncion": "",
+            "valorCampo": ""
+        },
         "isActivo":
-            {
-                "etiqueta": "Activo",
-                "funcionFM": "",
-                "parametrosFuncion": "",
-                "valorCampo": "0"
-            },
+        {
+            "etiqueta": "Activo",
+            "funcionFM": "",
+            "parametrosFuncion": "",
+            "valorCampo": "0"
+        },
         "isAsignable":
-            {
-                "etiqueta": "Asignable",
-                "funcionFM": "",
-                "parametrosFuncion": "",
-                "valorCampo": ""
-            },
+        {
+            "etiqueta": "Asignable",
+            "funcionFM": "",
+            "parametrosFuncion": "",
+            "valorCampo": ""
+        },
         "motivoBaja":
-            {
-                "etiqueta": "Motivo de baja",
-                "funcionFM": "",
-                "parametrosFuncion": "",
-                "valorCampo": ""
-            },
+        {
+            "etiqueta": "Motivo de baja",
+            "funcionFM": "",
+            "parametrosFuncion": "",
+            "valorCampo": ""
+        },
         "movil":
-            {
-                "etiqueta": "Móvil",
-                "funcionFM": "",
-                "parametrosFuncion": "",
-                "valorCampo": ""
-            },
+        {
+            "etiqueta": "Móvil",
+            "funcionFM": "",
+            "parametrosFuncion": "",
+            "valorCampo": ""
+        },
         "nacionalidad":
-            {
-                "etiqueta": "Nacionalidad",
-                "funcionFM": "",
-                "parametrosFuncion": "",
-                "valorCampo": "ESPAÑA"
-            },
+        {
+            "etiqueta": "Nacionalidad",
+            "funcionFM": "",
+            "parametrosFuncion": "",
+            "valorCampo": "ESPAÑA"
+        },
         "nacionalidad2":
-            {
-                "etiqueta": "Segunda nacionalidad",
-                "funcionFM": "",
-                "parametrosFuncion": "",
-                "valorCampo": "ITALIA"
-            },
+        {
+            "etiqueta": "Segunda nacionalidad",
+            "funcionFM": "",
+            "parametrosFuncion": "",
+            "valorCampo": "ITALIA"
+        },
         "nieOdni":
-            {
-                "etiqueta": "Tipo Documento",
-                "funcionFM": "",
-                "parametrosFuncion": "",
-                "valorCampo": "DNI"
-            },
+        {
+            "etiqueta": "Tipo Documento",
+            "funcionFM": "",
+            "parametrosFuncion": "",
+            "valorCampo": "DNI"
+        },
         "nombre":
-            {
-                "etiqueta": "Nombre Completo",
-                "funcionFM": "",
-                "parametrosFuncion": "",
-                "valorCampo": "Victor"
-            },
+        {
+            "etiqueta": "Nombre Completo",
+            "funcionFM": "",
+            "parametrosFuncion": "",
+            "valorCampo": "Victor"
+        },
         "nombreRNT":
-            {
-                "etiqueta": "Nombre RNT",
-                "funcionFM": "",
-                "parametrosFuncion": "",
-                "valorCampo": "ROFEV"
-            },
+        {
+            "etiqueta": "Nombre RNT",
+            "funcionFM": "",
+            "parametrosFuncion": "",
+            "valorCampo": "ROFEV"
+        },
         "nominas":
             [
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "150"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "150"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "123,6"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "123,6"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "998,12"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "998,12"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "30"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "30"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "8/9/2018"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "8/9/2018"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/1/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/1/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/1/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/1/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "00000"
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "00000"
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "A37459AF-7B8B-C046-9BBF-B84E84E64358"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "A37459AF-7B8B-C046-9BBF-B84E84E64358"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "874,52"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "874,52"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Enero"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Enero"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "ORTEGA MONTORO, ANTONIO"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "ORTEGA MONTORO, ANTONIO"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "704"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "704"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "637,92"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "637,92"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1439,47"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1439,47"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "30"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "30"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "12/12/2022"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "12/12/2022"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/1/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/1/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/1/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/1/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "00000"
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "00000"
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9B56A594-4AA9-E848-8450-F49EA5B86D21"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9B56A594-4AA9-E848-8450-F49EA5B86D21"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "801,55"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "801,55"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Enero"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Enero"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "HENAO MARIN, SANTIAGO"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "HENAO MARIN, SANTIAGO"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "3"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "3"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "706"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "706"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "172,29"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "172,29"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1326,64"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1326,64"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "30"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "30"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "21/12/2022"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "21/12/2022"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/1/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/1/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/1/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/1/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "00000"
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "00000"
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "597A1F41-0E9F-E745-A60E-66612E0557E3"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "597A1F41-0E9F-E745-A60E-66612E0557E3"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1154,35"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1154,35"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Enero"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Enero"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "DAVID, GEORGE NICOLAE"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "DAVID, GEORGE NICOLAE"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "4"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "4"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "708"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "708"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "106,05"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "106,05"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "530,65"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "530,65"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "12"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "12"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "20/1/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "20/1/2023"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "20/1/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "20/1/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/1/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/1/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/1/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/1/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "00000"
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "00000"
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "45B495F1-CB0D-F747-AA1B-C928E95B4F7A"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "45B495F1-CB0D-F747-AA1B-C928E95B4F7A"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "424,6"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "424,6"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Enero"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Enero"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "DE JESUS SERRANO, BRAYAN"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "DE JESUS SERRANO, BRAYAN"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "5"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "5"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "710"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "710"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "114,32"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "114,32"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "530,65"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "530,65"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "12"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "12"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "20/1/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "20/1/2023"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "20/1/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "20/1/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/1/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/1/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/1/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/1/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "00000"
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "00000"
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "8A14B495-DE74-3A42-BE1E-765EE7882324"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "8A14B495-DE74-3A42-BE1E-765EE7882324"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "416,33"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "416,33"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Enero"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Enero"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "PEREIRA PIRES, LUIS MIGUEL"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "PEREIRA PIRES, LUIS MIGUEL"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "702"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "702"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "609,62"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "609,62"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "884,42"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "884,42"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "20"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "20"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "25/10/2022"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "25/10/2022"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/1/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/1/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "20/1/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "20/1/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "00000"
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "00000"
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "B30FCE89-C481-5E4C-B28A-1C4EAC88E706"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "B30FCE89-C481-5E4C-B28A-1C4EAC88E706"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "274,8"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "274,8"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Enero"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Enero"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "ALVAREZ DELIS, FRANK MIGUEL"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "ALVAREZ DELIS, FRANK MIGUEL"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "7"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "7"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "702"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "702"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "26,16"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "26,16"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "309,55"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "309,55"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "25/10/2022"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "25/10/2022"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/1/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/1/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "20/1/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "20/1/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "8A3BB9B0-1ADD-2E46-A37D-D8CA79756E2C"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "8A3BB9B0-1ADD-2E46-A37D-D8CA79756E2C"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "283,39"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "283,39"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Enero"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Enero"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "ALVAREZ DELIS, FRANK MIGUEL"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "ALVAREZ DELIS, FRANK MIGUEL"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "10"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "10"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "705"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "705"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1930,01"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1930,01"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "663,32"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "663,32"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "16"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "16"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "14/12/2022"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "14/12/2022"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/1/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/1/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "16/1/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "16/1/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "00000"
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "00000"
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0B093AF0-6FAD-F349-8087-6E9E2F023217"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0B093AF0-6FAD-F349-8087-6E9E2F023217"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "-1266,69"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "-1266,69"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Enero"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Enero"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "SENNOUN, ACHRAF"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "SENNOUN, ACHRAF"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "11"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "11"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "705"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "705"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "14/12/2022"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "14/12/2022"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/1/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/1/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "16/1/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "16/1/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6D177FFF-F316-774A-835B-A39CCB752260"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6D177FFF-F316-774A-835B-A39CCB752260"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Enero"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Enero"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "SENNOUN, ACHRAF"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "SENNOUN, ACHRAF"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "14"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "14"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "703"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "703"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "199,79"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "199,79"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "174,31"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "174,31"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "25/11/2022"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "25/11/2022"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/1/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/1/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2/1/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2/1/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "00000"
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "00000"
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9D00CC9D-3FF5-0B4C-9C91-2C462D252286"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9D00CC9D-3FF5-0B4C-9C91-2C462D252286"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "-25,48"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "-25,48"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Enero"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Enero"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "GUZMAN GUZMAN, LUIS EDUARDO"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "GUZMAN GUZMAN, LUIS EDUARDO"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "15"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "15"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "703"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "703"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "11,21"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "11,21"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "132,66"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "132,66"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "25/11/2022"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "25/11/2022"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/1/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/1/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2/1/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2/1/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "5FEA1769-78C2-C94A-AAF5-796E661E0F47"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "5FEA1769-78C2-C94A-AAF5-796E661E0F47"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "121,45"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "121,45"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Enero"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Enero"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "GUZMAN GUZMAN, LUIS EDUARDO"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "GUZMAN GUZMAN, LUIS EDUARDO"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "18"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "18"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "150"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "150"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "119,68"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "119,68"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "901,53"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "901,53"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "30"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "30"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "8/9/2018"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "8/9/2018"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/2/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/2/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "28/2/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "28/2/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "28/2/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "28/2/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "00000"
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "00000"
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "EC05217F-139E-C844-90F2-460DE931A10E"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "EC05217F-139E-C844-90F2-460DE931A10E"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "781,85"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "781,85"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Febrero"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Febrero"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "ORTEGA MONTORO, ANTONIO"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "ORTEGA MONTORO, ANTONIO"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "19"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "19"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "704"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "704"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "525,3"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "525,3"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1444,98"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1444,98"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "30"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "30"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "12/12/2022"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "12/12/2022"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/2/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/2/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "28/2/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "28/2/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "28/2/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "28/2/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "00000"
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "00000"
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "DCDE5C76-49B4-0543-AC69-CE319EF32E06"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "DCDE5C76-49B4-0543-AC69-CE319EF32E06"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "919,68"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "919,68"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Febrero"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Febrero"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "HENAO MARIN, SANTIAGO"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "HENAO MARIN, SANTIAGO"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "22"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "22"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "710"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "710"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "240,67"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "240,67"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2129,27"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2129,27"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "30"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "30"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "205,97"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "205,97"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "20/1/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "20/1/2023"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/2/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/2/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "28/2/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "28/2/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "28/2/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "28/2/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "00000"
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "00000"
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "7D25DD80-F7E5-1842-94CC-07A0F2BE3F65"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "7D25DD80-F7E5-1842-94CC-07A0F2BE3F65"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1888,6"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1888,6"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Febrero"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Febrero"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "PEREIRA PIRES, LUIS MIGUEL"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "PEREIRA PIRES, LUIS MIGUEL"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "23"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "23"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "714"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "714"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "216,52"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "216,52"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "619,1"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "619,1"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "14"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "14"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "15/2/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "15/2/2023"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "15/2/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "15/2/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "28/2/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "28/2/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "28/2/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "28/2/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "00000"
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "00000"
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "47FF06F6-4938-A34B-ACA7-F0681D346F19"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "47FF06F6-4938-A34B-ACA7-F0681D346F19"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "402,58"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "402,58"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Febrero"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Febrero"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "VELASQUEZ MIRATIA, JEFFERSON FRANCISCO"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "VELASQUEZ MIRATIA, JEFFERSON FRANCISCO"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "24"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "24"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "708"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "708"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1888,98"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1888,98"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1207,86"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1207,86"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "30"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "30"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "20/1/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "20/1/2023"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/2/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/2/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "28/2/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "28/2/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "28/2/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "28/2/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "00000"
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "00000"
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "74133F1F-834F-8541-B241-6AD6C77795C1"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "74133F1F-834F-8541-B241-6AD6C77795C1"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "-681,12"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "-681,12"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Febrero"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Febrero"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "DE JESUS SERRANO, BRAYAN"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "DE JESUS SERRANO, BRAYAN"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "706"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "706"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "165,39"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "165,39"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1326,64"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1326,64"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "30"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "30"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "21/12/2022"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "21/12/2022"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/2/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/2/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "28/2/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "28/2/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "28/2/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "28/2/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "00000"
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "00000"
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "D2CD1210-08F4-7645-B0D8-7CC1A3A3EEBE"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "D2CD1210-08F4-7645-B0D8-7CC1A3A3EEBE"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1161,25"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1161,25"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Febrero"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Febrero"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "DAVID, GEORGE NICOLAE"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "DAVID, GEORGE NICOLAE"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "32"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "32"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "706"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "706"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "21/12/2022"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "21/12/2022"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/2/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/2/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "28/2/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "28/2/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "28/2/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "28/2/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "74245C36-3FE5-0E4B-84DE-02F45AAFA4E3"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "74245C36-3FE5-0E4B-84DE-02F45AAFA4E3"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Febrero"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Febrero"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "DAVID, GEORGE NICOLAE"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "DAVID, GEORGE NICOLAE"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "35"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "35"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "712"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "712"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "288,36"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "288,36"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "530,65"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "530,65"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "12"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "12"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "3/2/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "3/2/2023"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "3/2/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "3/2/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "28/2/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "28/2/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "14/2/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "14/2/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "00000"
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "00000"
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "BD7E3ADA-1E2B-3A41-AB12-A19A43738668"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "BD7E3ADA-1E2B-3A41-AB12-A19A43738668"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "242,29"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "242,29"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Febrero"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Febrero"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "MATOS FELIZ, YOVANNY"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "MATOS FELIZ, YOVANNY"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "36"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "36"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "712"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "712"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "3/2/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "3/2/2023"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "3/2/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "3/2/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "28/2/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "28/2/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "14/2/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "14/2/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "BB07DE5A-D458-234D-91DE-125A304F1672"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "BB07DE5A-D458-234D-91DE-125A304F1672"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Febrero"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Febrero"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "MATOS FELIZ, YOVANNY"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "MATOS FELIZ, YOVANNY"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "47"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "47"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "150"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "150"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "123,6"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "123,6"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "998,12"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "998,12"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "30"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "30"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "8/9/2018"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "8/9/2018"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/3/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/3/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/3/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/3/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/3/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/3/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "00000"
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "00000"
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "8C4F36A8-33EF-C141-A674-50248442BDB1"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "8C4F36A8-33EF-C141-A674-50248442BDB1"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "874,52"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "874,52"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Marzo"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Marzo"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "ORTEGA MONTORO, ANTONIO"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "ORTEGA MONTORO, ANTONIO"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "48"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "48"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "710"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "710"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "196,85"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "196,85"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1326,64"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1326,64"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "30"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "30"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "20/1/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "20/1/2023"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/3/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/3/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/3/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/3/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/3/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/3/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "00000"
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "00000"
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "11981649-EBD6-4045-8C02-5637C2363B53"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "11981649-EBD6-4045-8C02-5637C2363B53"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1129,79"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1129,79"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Marzo"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Marzo"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "PEREIRA PIRES, LUIS MIGUEL"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "PEREIRA PIRES, LUIS MIGUEL"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "49"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "49"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "715"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "715"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "167,26"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "167,26"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1326,64"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1326,64"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "30"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "30"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2/3/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2/3/2023"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2/3/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2/3/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/3/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/3/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/3/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/3/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "00000"
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "00000"
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9BE0C2CC-7D9B-DE4D-8995-71EB1C965BA9"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9BE0C2CC-7D9B-DE4D-8995-71EB1C965BA9"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1159,38"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1159,38"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Marzo"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Marzo"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "GONZALEZ QUIÑONEZ, ESWIN GEOVANY"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "GONZALEZ QUIÑONEZ, ESWIN GEOVANY"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "50"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "50"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "717"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "717"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "461,51"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "461,51"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "972,87"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "972,87"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "22"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "22"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "10/3/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "10/3/2023"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "10/3/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "10/3/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/3/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/3/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/3/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/3/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "00000"
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "00000"
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "99E15465-9F25-FA4B-BCDA-E047AB30C91E"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "99E15465-9F25-FA4B-BCDA-E047AB30C91E"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "511,36"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "511,36"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Marzo"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Marzo"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "ALMADA RUIZ, LIDIA MARIANA"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "ALMADA RUIZ, LIDIA MARIANA"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "51"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "51"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "718"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "718"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "29,89"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "29,89"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "353,77"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "353,77"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "8"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "8"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "24/3/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "24/3/2023"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "24/3/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "24/3/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/3/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/3/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/3/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/3/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "00000"
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "00000"
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0BDE3694-B9A9-304E-AC1A-7853545D541F"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0BDE3694-B9A9-304E-AC1A-7853545D541F"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "323,88"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "323,88"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Marzo"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Marzo"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "VELASQUEZ CHOQUE, JOHNY JOSE"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "VELASQUEZ CHOQUE, JOHNY JOSE"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "52"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "52"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "704"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "704"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "926,13"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "926,13"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "442,22"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "442,22"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "12/12/2022"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "12/12/2022"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/3/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/3/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/3/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/3/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/3/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/3/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "00000"
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "00000"
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "F5E822D2-F383-0D48-98C6-D910B8E552C5"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "F5E822D2-F383-0D48-98C6-D910B8E552C5"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "-483,91"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "-483,91"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Marzo"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Marzo"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "HENAO MARIN, SANTIAGO"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "HENAO MARIN, SANTIAGO"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "53"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "53"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "704"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "704"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "26,16"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "26,16"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "309,55"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "309,55"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "12/12/2022"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "12/12/2022"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/3/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/3/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/3/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/3/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/3/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/3/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9FD74C93-036C-E84C-AE82-46A627D90649"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9FD74C93-036C-E84C-AE82-46A627D90649"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "283,39"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "283,39"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Marzo"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Marzo"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "HENAO MARIN, SANTIAGO"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "HENAO MARIN, SANTIAGO"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "54"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "54"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "708"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "708"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1558,42"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1558,42"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1017,08"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1017,08"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "22"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "22"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "20/1/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "20/1/2023"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/3/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/3/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/3/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/3/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "22/3/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "22/3/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "00000"
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "00000"
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "B8D868FD-094D-514B-BF23-B58B202740C0"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "B8D868FD-094D-514B-BF23-B58B202740C0"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "-541,34"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "-541,34"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Marzo"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Marzo"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "DE JESUS SERRANO, BRAYAN"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "DE JESUS SERRANO, BRAYAN"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "55"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "55"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "708"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "708"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "18,68"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "18,68"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "221,11"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "221,11"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "20/1/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "20/1/2023"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/3/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/3/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/3/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/3/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "22/3/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "22/3/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "753ACE61-ECBA-FA4F-8A38-11B11CE1CCDF"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "753ACE61-ECBA-FA4F-8A38-11B11CE1CCDF"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "202,43"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "202,43"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Marzo"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Marzo"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "DE JESUS SERRANO, BRAYAN"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "DE JESUS SERRANO, BRAYAN"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "56"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "56"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "714"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "714"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "288,49"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "288,49"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1017,09"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1017,09"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "22"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "22"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "15/2/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "15/2/2023"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/3/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/3/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/3/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/3/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "22/3/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "22/3/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "00000"
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "00000"
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "E5DF61DB-C225-FA41-B436-A5912EF32849"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "E5DF61DB-C225-FA41-B436-A5912EF32849"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "728,6"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "728,6"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Marzo"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Marzo"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "VELASQUEZ MIRATIA, JEFFERSON FRANCISCO"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "VELASQUEZ MIRATIA, JEFFERSON FRANCISCO"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "57"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "57"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "714"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "714"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "11,21"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "11,21"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "132,66"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "132,66"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "15/2/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "15/2/2023"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/3/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/3/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/3/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/3/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "22/3/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "22/3/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "E624D175-F42D-414F-B156-DCBFC8E31232"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "E624D175-F42D-414F-B156-DCBFC8E31232"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "121,45"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "121,45"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Marzo"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Marzo"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "VELASQUEZ MIRATIA, JEFFERSON FRANCISCO"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "VELASQUEZ MIRATIA, JEFFERSON FRANCISCO"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "60"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "60"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "150"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "150"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "122,3"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "122,3"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "965,93"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "965,93"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "30"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "30"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "8/9/2018"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "8/9/2018"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/4/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/4/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "30/4/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "30/4/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "30/4/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "30/4/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "00000"
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "00000"
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "C1927EC5-0000-C640-939F-FC753949DE75"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "C1927EC5-0000-C640-939F-FC753949DE75"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "843,63"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "843,63"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Abril"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Abril"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "ORTEGA MONTORO, ANTONIO"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "ORTEGA MONTORO, ANTONIO"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "61"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "61"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "715"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "715"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "124,89"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "124,89"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1326,64"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1326,64"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "30"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "30"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2/3/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2/3/2023"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/4/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/4/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "30/4/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "30/4/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "30/4/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "30/4/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "00000"
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "00000"
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6FD309BF-DB83-064E-87A6-8401D835352F"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6FD309BF-DB83-064E-87A6-8401D835352F"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1201,75"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1201,75"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Abril"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Abril"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "GONZALEZ QUIÑONEZ, ESWIN GEOVANY"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "GONZALEZ QUIÑONEZ, ESWIN GEOVANY"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "62"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "62"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "717"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "717"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "179,9"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "179,9"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1326,64"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1326,64"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "30"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "30"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "10/3/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "10/3/2023"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/4/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/4/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "30/4/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "30/4/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "30/4/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "30/4/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "00000"
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "00000"
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "531C0826-7CB3-8D4E-9F9E-0537CCC88C2E"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "531C0826-7CB3-8D4E-9F9E-0537CCC88C2E"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1146,74"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1146,74"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Abril"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Abril"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "ALMADA RUIZ, LIDIA MARIANA"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "ALMADA RUIZ, LIDIA MARIANA"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "63"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "63"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "718"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "718"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "641,51"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "641,51"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1326,64"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1326,64"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "30"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "30"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "24/3/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "24/3/2023"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/4/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/4/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "30/4/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "30/4/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "30/4/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "30/4/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "00000"
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "00000"
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0CB560BF-20A9-ED44-8440-FED76353DA7C"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0CB560BF-20A9-ED44-8440-FED76353DA7C"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "685,13"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "685,13"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Abril"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Abril"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "VELASQUEZ CHOQUE, JOHNY JOSE"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "VELASQUEZ CHOQUE, JOHNY JOSE"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "65"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "65"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "720"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "720"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "486,1"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "486,1"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "751,77"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "751,77"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "18"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "18"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "13/4/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "13/4/2023"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "13/4/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "13/4/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "30/4/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "30/4/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "30/4/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "30/4/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "00000"
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "00000"
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2CD0C958-CC88-A140-8A21-F29CD3096CD1"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2CD0C958-CC88-A140-8A21-F29CD3096CD1"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "265,67"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "265,67"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Abril"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Abril"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "ALVAREZ GOMEZ, VICTOR"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "ALVAREZ GOMEZ, VICTOR"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "66"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "66"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "710"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "710"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "40,64"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "40,64"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "928,65"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "928,65"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "18"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "18"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "20/1/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "20/1/2023"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/4/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/4/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "30/4/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "30/4/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "18/4/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "18/4/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "00000"
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "00000"
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "C77CDC6B-A212-5F48-84E6-15E57B868B17"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "C77CDC6B-A212-5F48-84E6-15E57B868B17"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "888,01"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "888,01"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Abril"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Abril"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "PEREIRA PIRES, LUIS MIGUEL"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "PEREIRA PIRES, LUIS MIGUEL"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "67"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "67"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "710"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "710"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "26,16"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "26,16"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "309,55"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "309,55"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "20/1/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "20/1/2023"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/4/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/4/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "30/4/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "30/4/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "18/4/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "18/4/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "FD9B972A-0E8C-D842-9AE2-119861F2273E"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "FD9B972A-0E8C-D842-9AE2-119861F2273E"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "283,39"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "283,39"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Abril"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Abril"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "PEREIRA PIRES, LUIS MIGUEL"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "PEREIRA PIRES, LUIS MIGUEL"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "72"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "72"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "150"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "150"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "123,6"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "123,6"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "998,12"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "998,12"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "30"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "30"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "8/9/2018"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "8/9/2018"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/5/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/5/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/5/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/5/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/5/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/5/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "00000"
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "00000"
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "83BFAEBA-C9DD-7042-8D31-0E6FF4F8850E"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "83BFAEBA-C9DD-7042-8D31-0E6FF4F8850E"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "874,52"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "874,52"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Mayo"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Mayo"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "ORTEGA MONTORO, ANTONIO"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "ORTEGA MONTORO, ANTONIO"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "73"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "73"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "717"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "717"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "263,14"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "263,14"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1431,97"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1431,97"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "30"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "30"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "10/3/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "10/3/2023"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/5/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/5/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/5/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/5/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/5/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/5/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "00000"
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "00000"
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "B579D848-F9C0-F646-90A2-6E694F4C8910"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "B579D848-F9C0-F646-90A2-6E694F4C8910"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1168,83"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1168,83"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Mayo"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Mayo"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "ALMADA RUIZ, LIDIA MARIANA"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "ALMADA RUIZ, LIDIA MARIANA"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "74"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "74"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "721"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "721"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "377,06"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "377,06"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "924,94"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "924,94"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "20"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "20"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "12/5/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "12/5/2023"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "12/5/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "12/5/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/5/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/5/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/5/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/5/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "00000"
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "00000"
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "D64E0D25-A379-5F4A-86C8-0642079774E1"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "D64E0D25-A379-5F4A-86C8-0642079774E1"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "547,88"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "547,88"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Mayo"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Mayo"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "COLLAGUAZO NARVAEZ, HERMENEGILDO"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "COLLAGUAZO NARVAEZ, HERMENEGILDO"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "75"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "75"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "723"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "723"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "158,82"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "158,82"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "884,42"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "884,42"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "20"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "20"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "12/5/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "12/5/2023"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "12/5/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "12/5/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/5/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/5/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/5/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/5/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "00000"
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "00000"
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "816E76C3-94F6-FB4D-9879-E2D179C89DE0"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "816E76C3-94F6-FB4D-9879-E2D179C89DE0"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "725,6"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "725,6"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Mayo"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Mayo"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "BRANDAO FERRAZ, BRUNO JOSE"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "BRANDAO FERRAZ, BRUNO JOSE"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "76"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "76"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "725"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "725"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "22,43"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "22,43"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "265,32"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "265,32"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "26/5/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "26/5/2023"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "26/5/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "26/5/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/5/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/5/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/5/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/5/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "00000"
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "00000"
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9EEC935F-5FAB-374F-A6C6-58F119FBDD97"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9EEC935F-5FAB-374F-A6C6-58F119FBDD97"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "242,89"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "242,89"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Mayo"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Mayo"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "MACHUCA MACHUCA, LEIVA GABRIEL"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "MACHUCA MACHUCA, LEIVA GABRIEL"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "83"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "83"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "718"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "718"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "418,87"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "418,87"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "486,43"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "486,43"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "8"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "8"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "24/3/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "24/3/2023"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/5/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/5/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/5/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/5/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "8/5/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "8/5/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "00000"
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "00000"
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1DB20E64-56BE-F148-B8C0-CFA9DED4F222"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1DB20E64-56BE-F148-B8C0-CFA9DED4F222"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "67,56"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "67,56"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Mayo"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Mayo"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "VELASQUEZ CHOQUE, JOHNY JOSE"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "VELASQUEZ CHOQUE, JOHNY JOSE"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "84"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "84"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "718"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "718"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "14,95"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "14,95"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "176,89"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "176,89"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "24/3/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "24/3/2023"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/5/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/5/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/5/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/5/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "8/5/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "8/5/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "907AB5DC-55D8-E047-A9F6-F6D8A8019D7D"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "907AB5DC-55D8-E047-A9F6-F6D8A8019D7D"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "161,94"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "161,94"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Mayo"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Mayo"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "VELASQUEZ CHOQUE, JOHNY JOSE"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "VELASQUEZ CHOQUE, JOHNY JOSE"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "85"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "85"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "720"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "720"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "385,99"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "385,99"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "398"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "398"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "13/4/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "13/4/2023"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/5/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/5/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/5/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/5/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/5/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/5/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "00000"
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "00000"
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "C2C6D6FA-9C47-D044-86A2-6B05935FF43F"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "C2C6D6FA-9C47-D044-86A2-6B05935FF43F"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "12,01"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "12,01"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Mayo"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Mayo"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "ALVAREZ GOMEZ, VICTOR"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "ALVAREZ GOMEZ, VICTOR"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "86"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "86"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "720"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "720"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "13/4/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "13/4/2023"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/5/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/5/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/5/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/5/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/5/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/5/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1B9E5D36-06ED-ED4A-B7B4-C5919EB3C6C6"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1B9E5D36-06ED-ED4A-B7B4-C5919EB3C6C6"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Mayo"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Mayo"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "ALVAREZ GOMEZ, VICTOR"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "ALVAREZ GOMEZ, VICTOR"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "87"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "87"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "722"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "722"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "156,69"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "156,69"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "574,87"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "574,87"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "13"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "13"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "12/5/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "12/5/2023"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "12/5/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "12/5/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/5/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/5/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "24/5/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "24/5/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "00000"
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "00000"
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "D85182C7-DAC0-8041-86DE-33F443CCFE39"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "D85182C7-DAC0-8041-86DE-33F443CCFE39"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "418,18"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "418,18"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Mayo"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Mayo"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "PEREZ BANDERAS, SERGIO"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "PEREZ BANDERAS, SERGIO"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    }
                 },
                 {
                     "anioEjercicio":
-                        {
-                            "etiqueta": "Año",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2023"
-                        },
+                    {
+                        "etiqueta": "Año",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2023"
+                    },
                     "categoria":
-                        {
-                            "etiqueta": "Categoría",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Categoría",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "centroDeTrabajo":
-                        {
-                            "etiqueta": "Centro de trabajo",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Centro de trabajo",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "codigoNomina":
-                        {
-                            "etiqueta": "Código",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "88"
-                        },
+                    {
+                        "etiqueta": "Código",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "88"
+                    },
                     "codigoOcupacion":
-                        {
-                            "etiqueta": "Código de ocupación",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Código de ocupación",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "codigoTrabajador":
-                        {
-                            "etiqueta": "Código trabajador",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "722"
-                        },
+                    {
+                        "etiqueta": "Código trabajador",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "722"
+                    },
                     "convenio":
-                        {
-                            "etiqueta": "Convenio",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "6"
-                        },
+                    {
+                        "etiqueta": "Convenio",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "6"
+                    },
                     "deduccionesImporte":
-                        {
-                            "etiqueta": "Importe deducciones",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "3,73"
-                        },
+                    {
+                        "etiqueta": "Importe deducciones",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "3,73"
+                    },
                     "devengadoImporte":
-                        {
-                            "etiqueta": "Importe devengado",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "44,22"
-                        },
+                    {
+                        "etiqueta": "Importe devengado",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "44,22"
+                    },
                     "dias":
-                        {
-                            "etiqueta": "Número días",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Número días",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "embargadoImporte":
-                        {
-                            "etiqueta": "Importe embargos",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Importe embargos",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "fechaAntiguedad":
-                        {
-                            "etiqueta": "Fecha de antiguedad",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "12/5/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha de antiguedad",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "12/5/2023"
+                    },
                     "fechaControl":
-                        {
-                            "etiqueta": "Fecha de control",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1/1/1900"
-                        },
+                    {
+                        "etiqueta": "Fecha de control",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1/1/1900"
+                    },
                     "fechaDesde":
-                        {
-                            "etiqueta": "Fecha desde",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "12/5/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha desde",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "12/5/2023"
+                    },
                     "fechaEmision":
-                        {
-                            "etiqueta": "Fecha de emisión",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "31/5/2023 00:00"
-                        },
+                    {
+                        "etiqueta": "Fecha de emisión",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "31/5/2023 00:00"
+                    },
                     "fechaHasta":
-                        {
-                            "etiqueta": "Fecha hasta",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "24/5/2023"
-                        },
+                    {
+                        "etiqueta": "Fecha hasta",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "24/5/2023"
+                    },
                     "fechaUltimaActualizacion_dSol":
-                        {
-                            "etiqueta": "Última actualización DELSOL",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9/10/2023 10:17:38"
-                        },
+                    {
+                        "etiqueta": "Última actualización DELSOL",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9/10/2023 10:17:38"
+                    },
                     "grupoCotizacion":
-                        {
-                            "etiqueta": "Grupo de cotización",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "9"
-                        },
+                    {
+                        "etiqueta": "Grupo de cotización",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "9"
+                    },
                     "horasComplementarias":
-                        {
-                            "etiqueta": "Horas complementarias",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas complementarias",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "horasPorDia":
-                        {
-                            "etiqueta": "Horas por día",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": ""
-                        },
+                    {
+                        "etiqueta": "Horas por día",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": ""
+                    },
                     "id":
-                        {
-                            "etiqueta": "Id",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "AB1F9AA6-DC7D-6F4C-AE3D-F5BA6575139C"
-                        },
+                    {
+                        "etiqueta": "Id",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "AB1F9AA6-DC7D-6F4C-AE3D-F5BA6575139C"
+                    },
                     "isContabilizada":
-                        {
-                            "etiqueta": "Contabilizada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Contabilizada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "isCopia":
-                        {
-                            "etiqueta": "Duplicada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "0"
-                        },
+                    {
+                        "etiqueta": "Duplicada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "0"
+                    },
                     "isIncluidaEnTransferencia":
-                        {
-                            "etiqueta": "Incluida en transferencia",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "1"
-                        },
+                    {
+                        "etiqueta": "Incluida en transferencia",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "1"
+                    },
                     "liquidoApercibir":
-                        {
-                            "etiqueta": "Líquido a percibir",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "40,49"
-                        },
+                    {
+                        "etiqueta": "Líquido a percibir",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "40,49"
+                    },
                     "mesNomina":
-                        {
-                            "etiqueta": "Mes nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "Mayo"
-                        },
+                    {
+                        "etiqueta": "Mes nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "Mayo"
+                    },
                     "nombreEmpresa":
-                        {
-                            "etiqueta": "Conductor",
-                            "funcionFM": "mostrarID",
-                            "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
-                            "valorCampo": "PEREZ BANDERAS, SERGIO"
-                        },
+                    {
+                        "etiqueta": "Conductor",
+                        "funcionFM": "mostrarID",
+                        "parametrosFuncion": "{\"id_Registro\":\"5E3B3669-01DD-4B9D-A711-DC6A8B8C8825\"}",
+                        "valorCampo": "PEREZ BANDERAS, SERGIO"
+                    },
                     "porcentajeRealJornada":
-                        {
-                            "etiqueta": "Porcentaje real jornada",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "100"
-                        },
+                    {
+                        "etiqueta": "Porcentaje real jornada",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "100"
+                    },
                     "tipoNomina":
-                        {
-                            "etiqueta": "Cod. tipo nómina",
-                            "funcionFM": "",
-                            "parametrosFuncion": "",
-                            "valorCampo": "2"
-                        }
+                    {
+                        "etiqueta": "Cod. tipo nómina",
+                        "funcionFM": "",
+                        "parametrosFuncion": "",
+                        "valorCampo": "2"
+                    }
                 }
             ],
         "numeroSegSocial":
-            {
-                "etiqueta": "Número seguridad social",
-                "funcionFM": "",
-                "parametrosFuncion": "",
-                "valorCampo": "281286942382"
-            },
+        {
+            "etiqueta": "Número seguridad social",
+            "funcionFM": "",
+            "parametrosFuncion": "",
+            "valorCampo": "281286942382"
+        },
         "tarjetaSolred":
-            {
-                "etiqueta": "Tarjeta solred",
-                "funcionFM": "",
-                "parametrosFuncion": "",
-                "valorCampo": ""
-            },
+        {
+            "etiqueta": "Tarjeta solred",
+            "funcionFM": "",
+            "parametrosFuncion": "",
+            "valorCampo": ""
+        },
         "telefono":
-            {
-                "etiqueta": "Teléfono",
-                "funcionFM": "",
-                "parametrosFuncion": "",
-                "valorCampo": "61001928700"
-            },
+        {
+            "etiqueta": "Teléfono",
+            "funcionFM": "",
+            "parametrosFuncion": "",
+            "valorCampo": "61001928700"
+        },
         "tipoJornada":
-            {
-                "etiqueta": "Tipo de jornanda",
-                "funcionFM": "",
-                "parametrosFuncion": "",
-                "valorCampo": ""
-            },
+        {
+            "etiqueta": "Tipo de jornanda",
+            "funcionFM": "",
+            "parametrosFuncion": "",
+            "valorCampo": ""
+        },
         "transferencia":
-            {
-                "etiqueta": "Transferencia",
-                "funcionFM": "",
-                "parametrosFuncion": "",
-                "valorCampo": ""
-            },
+        {
+            "etiqueta": "Transferencia",
+            "funcionFM": "",
+            "parametrosFuncion": "",
+            "valorCampo": ""
+        },
         "turnoPreferente":
-            {
-                "etiqueta": "Turno preferente",
-                "funcionFM": "",
-                "parametrosFuncion": "",
-                "valorCampo": "Mañana"
-            }
+        {
+            "etiqueta": "Turno preferente",
+            "funcionFM": "",
+            "parametrosFuncion": "",
+            "valorCampo": "Mañana"
+        }
     }
-    console.log('##ABEL## >> CargaDatos >>  CargaDatos', testData);
-    fillCommonData(testData)
-    createTable(testData.nominas)
+    console.log('##ABEL## >> CargaDatos >>  CargaDatos', driver);
+    fillCommonData(driver)
+    createTable(driver.nominas)
 }
 
