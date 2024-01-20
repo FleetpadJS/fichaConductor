@@ -6,13 +6,24 @@ class Input extends HTMLElement {
 
     handleEvent(event) {
         if (event.type === "click") {
-            FileMaker.PerformScript(event.target.getAttribute("data-funcion-fm"), event.target.getAttribute("data-parametros-funcion"));
+            try {
+                const funcionFM = event.target.getAttribute("data-funcion-fm");
 
+                if (funcionFM && funcionFM.trim() !== "") {
+                    const parametrosFuncion = event.target.getAttribute("data-parametros-funcion") || "";
+                    FileMaker.PerformScript(funcionFM, parametrosFuncion);
+                } else {
+                    console.error("El valor de 'data-funcion-fm' es vacío o nulo.");
+                }
+            } catch (error) {
+                console.error("Error al ejecutar FileMaker.PerformScript:", error);
+            }
         }
     }
 
+
     connectedCallback() {
-        let shadowRoot = this.attachShadow({mode: "open"});
+        let shadowRoot = this.attachShadow({ mode: "open" });
         shadowRoot.innerHTML = `
       <style>
         :host {
@@ -26,14 +37,13 @@ class Input extends HTMLElement {
             
         }
         .c-input__box{
-            /*box-shadow: 1px 1px 6px 3px rgb(185 185 185);*/
+            box-shadow: 1px 1px 6px 3px rgb(185 185 185);
             border: 0;
             border-bottom: 1px solid #ccc;
             padding: 4px;
             width: 100%;
             box-sizing: border-box;
             background: transparent;
-            pointer-events: none;
         }
         .c-input__label{
             margin-bottom: 4px;

@@ -1,22 +1,36 @@
 function fillCommonData(allData) {
-    const nodesToFill$$ = document.querySelectorAll("[data-fill]")
+    // Selecciona todos los elementos con el atributo "data-fill"
+    const nodesToFill$$ = document.querySelectorAll("[data-fill]");
+    console.log('##ABEL## >> nodesToFill$$ >>  fillCommonData', nodesToFill$$);
 
+    // Itera sobre cada elemento seleccionado
     for (const node$$ of nodesToFill$$) {
+        // Busca el elemento con el atributo "data-fill" en la sombra del elemento actual
         const queriedNode$$ = node$$.shadowRoot.querySelector("[data-fill]");
+        // Busca el elemento <label> en la sombra del elemento actual
         const labelNode$$ = node$$.shadowRoot.querySelector("label");
-        const field =  allData[node$$.getAttribute("data-fill")]
-        queriedNode$$.value = field.valorCampo;
-        if(field.funcionFM.length > 0){
-            labelNode$$.setAttribute("data-funcion-fm", field.funcionFM)
-            labelNode$$.setAttribute("data-parametros-funcion", field.parametrosFuncion)
-        }
 
+        // Obtiene los datos correspondientes al elemento actual
+        const field = allData[node$$.getAttribute("data-fill")];
+
+        // Verifica si field y field.valorCampo no son "falsy"
+        if (field && field.valorCampo) {
+            // Asigna el valor de field.valorCampo al elemento con "data-fill"
+            queriedNode$$.value = field.valorCampo;
+
+            // Si field.funcionFM tiene longitud mayor a 0, establece atributos en el elemento <label>
+            if (field.funcionFM.length > 0) {
+                labelNode$$.setAttribute("data-funcion-fm", field.funcionFM);
+                labelNode$$.setAttribute("data-parametros-funcion", field.parametrosFuncion);
+            }
+        }
     }
 }
 
 
+
 function createTable(tableData) {
-//define table
+    //define table
     const table = new window.Tabulator("#table-salary", {
         data: tableData,
         height: "400",
@@ -34,7 +48,7 @@ function formatColumns(tableRow) {
                 title: tableRow[key].etiqueta,
                 field: key + ".valorCampo",
                 headerFilter: "list",
-                headerFilterParams: {valuesLookup: "active", multiselect: true},
+                headerFilterParams: { valuesLookup: "active", multiselect: true },
                 headerFilterFunc: "in"
             }
         )
@@ -45,10 +59,12 @@ function formatColumns(tableRow) {
     return formattedColumns
 }
 
-CargaDatos()
 
 function CargaDatos(driverData) {
-    // const driver = JSON.parse(driverData)
+
+    const driver = JSON.parse(driverData)
+    //Imprimir driver
+    //console.log(JSON.stringify(driver))
 
     const testData = {
         "IBAN":
@@ -56,7 +72,7 @@ function CargaDatos(driverData) {
                 "etiqueta": "Transferencia",
                 "funcionFM": "",
                 "parametrosFuncion": "",
-                "valorCampo": "ES3700817781667672892779\r"
+                "valorCampo": "ES3700817781667672892779"
             },
         "apellidos":
             {
@@ -10453,8 +10469,8 @@ function CargaDatos(driverData) {
                 "valorCampo": "Mañana"
             }
     }
-    console.log('##ABEL## >> CargaDatos >>  CargaDatos', testData);
-    fillCommonData(testData)
-    createTable(testData.nominas)
+    console.log('##ABEL## >> CargaDatos >>  CargaDatos', driver);
+    fillCommonData(driver)
+    createTable(driver.nominas)
 }
 
