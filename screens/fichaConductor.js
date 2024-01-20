@@ -1,6 +1,6 @@
 function fillCommonData(allData) {
     const nodesToFill$$ = document.querySelectorAll("[data-fill]")
-    console.log('##ABEL## >> nodesToFill$$ >>  fillCommonData', nodesToFill$$);
+
     for (const node$$ of nodesToFill$$) {
         const queriedNode$$ = node$$.shadowRoot.querySelector("[data-fill]");
         const labelNode$$ = node$$.shadowRoot.querySelector("label");

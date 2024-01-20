@@ -33,6 +33,7 @@ class Input extends HTMLElement {
             width: 100%;
             box-sizing: border-box;
             background: transparent;
+            pointer-events: none;
         }
         .c-input__label{
             margin-bottom: 4px;
@@ -48,7 +49,7 @@ class Input extends HTMLElement {
     `;
         this.label = this.shadowRoot.querySelector("label");
         // if (this.label.getAttribute("data-funcion-fm"))
-            this.label.addEventListener("click", this)
+        this.label.addEventListener("click", this)
     }
 }
 
