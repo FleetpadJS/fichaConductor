@@ -37,24 +37,31 @@ class Input extends HTMLElement {
             
         }
         .c-input__box{
+            background-color: white;      
+            display: block;
             box-shadow: 1px 1px 6px 3px rgb(185 185 185);
             border: 0;
             border-bottom: 1px solid #ccc;
-            padding: 4px;
+            padding: 2px 5px 2px 5px;
             width: 100%;
+            height: 20px;
+            font-size: 0.9em;
             box-sizing: border-box;
-            background: transparent;
+            cursor: text; // Cambia el cursor a uno por defecto 
         }
         .c-input__label{
             margin-bottom: 4px;
             display: block;
             font-size: 14px;
+            cursor: pointer;
         }
         
       </style>
       <div class="c-input">
         <label class="c-input__label">${this.getAttribute('label')}</label>
-        <input class="c-input__box" type="text" data-fill="${this.getAttribute('data-fill')}">
+        <!-- <input class="c-input__box" type="readonly" data-fill="${this.getAttribute('data-fill')}"> -->
+        <span class="c-input__box" data-fill="${this.getAttribute('data-fill')}"></span>
+
       </div>
     `;
         this.label = this.shadowRoot.querySelector("label");
