@@ -65,8 +65,8 @@ function formatColumns(tableRow) {
 
 function CargaDatos(driverData) {
 
-    //const driver = JSON.parse(driverData);
-    const driver = driverData;
+    const driver = JSON.parse(driverData);
+    //const driver = driverData;
 
     //Imprimir driver
     //console.log(JSON.stringify(driver))
