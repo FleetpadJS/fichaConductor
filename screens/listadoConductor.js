@@ -507,6 +507,6 @@ function cargarDatosJSON(driverData, drivenColumnData) {
     const drivers = JSON.parse(driverData)
     const driversColumns = JSON.parse(drivenColumnData)
 
-    createTable(driverData, driversColumns)
+    createTable(drivers, driversColumns)
 }
 
