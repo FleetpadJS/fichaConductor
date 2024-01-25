@@ -1,3 +1,6 @@
+//Se define variable global para controlar el id de Conductor actual que se muestra en la ficha.
+window.idConductor_g = null;
+
 function fillCommonData(allData) {
     // Selecciona todos los elementos con el atributo "data-fill"
     const nodesToFill$$ = document.querySelectorAll("[data-fill]");
@@ -65,8 +68,10 @@ function formatColumns(tableRow) {
 
 function CargaDatos(driverData) {
 
-    const driver = JSON.parse(driverData);
-    //const driver = driverData;
+    //const driver = JSON.parse(driverData);
+    const driver = driverData;
+    //Obtener el id de Conductor para establecerlo como variable global
+    window.idConductor_g = driver.id.valorCampo
 
     //Imprimir driver
     //console.log(JSON.stringify(driver))
