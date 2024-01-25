@@ -68,10 +68,11 @@ function formatColumns(tableRow) {
 
 function CargaDatos(driverData) {
 
-    //const driver = JSON.parse(driverData);
-    const driver = driverData;
+    const driver = JSON.parse(driverData);
+    //const driver = driverData;
     //Obtener el id de Conductor para establecerlo como variable global
     window.idConductor_g = driver.id.valorCampo
+    console.log(window.idConductor_g)
 
     //Imprimir driver
     //console.log(JSON.stringify(driver))
