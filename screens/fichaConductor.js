@@ -19,8 +19,8 @@ function fillCommonData(allData) {
         // Verifica si field y field.valorCampo no son "falsy"
         if (field && field.valorCampo) {
             // Asigna el valor de field.valorCampo al elemento con "data-fill"
-            
-            //queriedNode$$.value = field.valorCampo; 
+
+            //queriedNode$$.value = field.valorCampo;
             queriedNode$$.textContent = field.valorCampo; //Se utiliza textContent porque la etiqueta es span
 
             // Si field.funcionFM tiene longitud mayor a 0, establece atributos en el elemento <label>

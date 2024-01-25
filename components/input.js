@@ -1,30 +1,30 @@
 class Input extends HTMLElement {
-  constructor() {
-    super();
-  }
-
-
-  handleEvent(event) {
-    if (event.type === "click") {
-      try {
-        const funcionFM = event.target.getAttribute("data-funcion-fm");
-
-        if (funcionFM && funcionFM.trim() !== "") {
-          const parametrosFuncion = event.target.getAttribute("data-parametros-funcion") || "";
-          FileMaker.PerformScript(funcionFM, parametrosFuncion);
-        } else {
-          console.error("El valor de 'data-funcion-fm' es vacío o nulo.");
-        }
-      } catch (error) {
-        console.error("Error al ejecutar FileMaker.PerformScript:", error);
-      }
+    constructor() {
+        super();
     }
-  }
 
 
-  connectedCallback() {
-    let shadowRoot = this.attachShadow({ mode: "open" });
-    shadowRoot.innerHTML = `
+    handleEvent(event) {
+        if (event.type === "click") {
+            try {
+                const funcionFM = event.target.getAttribute("data-funcion-fm");
+
+                if (funcionFM && funcionFM.trim() !== "") {
+                    const parametrosFuncion = event.target.getAttribute("data-parametros-funcion") || "";
+                    FileMaker.PerformScript(funcionFM, parametrosFuncion);
+                } else {
+                    console.error("El valor de 'data-funcion-fm' es vacío o nulo.");
+                }
+            } catch (error) {
+                console.error("Error al ejecutar FileMaker.PerformScript:", error);
+            }
+        }
+    }
+
+
+    connectedCallback() {
+        let shadowRoot = this.attachShadow({ mode: "open" });
+        shadowRoot.innerHTML = `
       <style>
         :host {
       
@@ -64,10 +64,10 @@ class Input extends HTMLElement {
 
       </div>
     `;
-    this.label = this.shadowRoot.querySelector("label");
-    // if (this.label.getAttribute("data-funcion-fm"))
-    this.label.addEventListener("click", this)
-  }
+        this.label = this.shadowRoot.querySelector("label");
+        // if (this.label.getAttribute("data-funcion-fm"))
+        this.label.addEventListener("click", this)
+    }
 }
 
 window.customElements.define("c-input", Input);
